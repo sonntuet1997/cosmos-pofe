@@ -8,6 +8,32 @@ option go_package = "github.com/sonntuet1997/pofe/x/pofe/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateClaim(MsgCreateClaim) returns (MsgCreateClaimResponse);
+  rpc UpdateClaim(MsgUpdateClaim) returns (MsgUpdateClaimResponse);
+  rpc DeleteClaim(MsgDeleteClaim) returns (MsgDeleteClaimResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateClaim {
+  string creator = 1;
+  string proof = 2;
+}
+
+message MsgCreateClaimResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateClaim {
+  string creator = 1;
+  uint64 id = 2;
+  string proof = 3;
+}
+
+message MsgUpdateClaimResponse { }
+
+message MsgDeleteClaim {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteClaimResponse { }

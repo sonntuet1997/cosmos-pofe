@@ -4,12 +4,36 @@ package sonntuet1997.pofe.pofe;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "pofe/claim.proto";
 
 option go_package = "github.com/sonntuet1997/pofe/x/pofe/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+	rpc Claim(QueryGetClaimRequest) returns (QueryGetClaimResponse) {
+		option (google.api.http).get = "/sonntuet1997/pofe/pofe/claim/{id}";
+	}
+	rpc ClaimAll(QueryAllClaimRequest) returns (QueryAllClaimResponse) {
+		option (google.api.http).get = "/sonntuet1997/pofe/pofe/claim";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetClaimRequest {
+	uint64 id = 1;
+}
+
+message QueryGetClaimResponse {
+	Claim Claim = 1;
+}
+
+message QueryAllClaimRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllClaimResponse {
+	repeated Claim Claim = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

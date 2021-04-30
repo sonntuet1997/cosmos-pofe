@@ -1,0 +1,12 @@
+syntax = "proto3";
+package sonntuet1997.pofe.pofe;
+
+option go_package = "github.com/sonntuet1997/pofe/x/pofe/types";
+
+import "gogoproto/gogo.proto";
+
+message Claim {
+  string creator = 1;
+  uint64 id = 2;
+  string proof = 3; 
+}
