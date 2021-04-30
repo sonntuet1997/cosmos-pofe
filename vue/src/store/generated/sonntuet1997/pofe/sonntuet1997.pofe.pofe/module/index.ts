@@ -4,15 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
+import { MsgDeleteClaim } from "./types/pofe/tx";
 import { MsgCreateClaim } from "./types/pofe/tx";
 import { MsgUpdateClaim } from "./types/pofe/tx";
-import { MsgDeleteClaim } from "./types/pofe/tx";
 
 
 const types = [
+  ["/sonntuet1997.pofe.pofe.MsgDeleteClaim", MsgDeleteClaim],
   ["/sonntuet1997.pofe.pofe.MsgCreateClaim", MsgCreateClaim],
   ["/sonntuet1997.pofe.pofe.MsgUpdateClaim", MsgUpdateClaim],
-  ["/sonntuet1997.pofe.pofe.MsgDeleteClaim", MsgDeleteClaim],
   
 ];
 
@@ -40,9 +40,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee=defaultFee, memo=null }: SignAndBroadcastOptions) => memo?client.signAndBroadcast(address, msgs, fee,memo):client.signAndBroadcast(address, msgs, fee),
+    msgDeleteClaim: (data: MsgDeleteClaim): EncodeObject => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgDeleteClaim", value: data }),
     msgCreateClaim: (data: MsgCreateClaim): EncodeObject => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgCreateClaim", value: data }),
     msgUpdateClaim: (data: MsgUpdateClaim): EncodeObject => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgUpdateClaim", value: data }),
-    msgDeleteClaim: (data: MsgDeleteClaim): EncodeObject => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgDeleteClaim", value: data }),
     
   };
 };
