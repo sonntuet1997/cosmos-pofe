@@ -1,6 +1,9 @@
 package rest
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
@@ -37,8 +40,10 @@ func createClaimHandler(clientCtx client.Context) http.HandlerFunc {
 			return
 		}
 
-		parsedProof := req.Proof
-
+		hasher := sha256.New()
+		s, _ := ioutil.ReadFile(req.Proof)
+		hasher.Write(s)
+		parsedProof := hex.EncodeToString(hasher.Sum(nil))
 		msg := types.NewMsgCreateClaim(
 			req.Creator,
 			parsedProof,

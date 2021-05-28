@@ -2,13 +2,13 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgDeleteClaim } from "./types/pofe/tx";
-import { MsgCreateClaim } from "./types/pofe/tx";
 import { MsgUpdateClaim } from "./types/pofe/tx";
+import { MsgCreateClaim } from "./types/pofe/tx";
+import { MsgDeleteClaim } from "./types/pofe/tx";
 const types = [
-    ["/sonntuet1997.pofe.pofe.MsgDeleteClaim", MsgDeleteClaim],
-    ["/sonntuet1997.pofe.pofe.MsgCreateClaim", MsgCreateClaim],
     ["/sonntuet1997.pofe.pofe.MsgUpdateClaim", MsgUpdateClaim],
+    ["/sonntuet1997.pofe.pofe.MsgCreateClaim", MsgCreateClaim],
+    ["/sonntuet1997.pofe.pofe.MsgDeleteClaim", MsgDeleteClaim],
 ];
 const registry = new Registry(types);
 const defaultFee = {
@@ -22,9 +22,9 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee = defaultFee, memo = null }) => memo ? client.signAndBroadcast(address, msgs, fee, memo) : client.signAndBroadcast(address, msgs, fee),
-        msgDeleteClaim: (data) => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgDeleteClaim", value: data }),
-        msgCreateClaim: (data) => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgCreateClaim", value: data }),
         msgUpdateClaim: (data) => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgUpdateClaim", value: data }),
+        msgCreateClaim: (data) => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgCreateClaim", value: data }),
+        msgDeleteClaim: (data) => ({ typeUrl: "/sonntuet1997.pofe.pofe.MsgDeleteClaim", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {
